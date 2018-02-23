@@ -3,7 +3,11 @@ package top.weineel.javasprint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @SpringBootApplication  // 同时包含了@Configuration、@EnableAutoConfiguration、@ComponentScan三个注解
@@ -34,7 +38,14 @@ public class JavaSprintApplication {
 
 //      自定义
         SpringApplication app = new SpringApplication(JavaSprintApplication.class);
-        app.addListeners();
+        /*
+        使用ApplicationListener 中的泛型类型来区分不同的事件类型。
+         */
+        app.addListeners((ApplicationListener<ApplicationStartingEvent>) event -> {
+            System.out.println("ApplicationStartingEvent System.out: " + event.getTimestamp());
+            // 由于刚启动ApplicationContext还没有初始化完成，所以还没有注入log，无法打印出下面一行
+            log.info("ApplicationStartingEvent: " + event.getTimestamp());
+        }, (ApplicationListener<ApplicationReadyEvent>) event -> log.info("ApplicationReadyEvent: " + event.getTimestamp()));
 //        app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
 
