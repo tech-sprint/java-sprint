@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public aspect Logger {
     private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
-//    pointcut endLogPointcut():execution(* top.weineel.javasprint.controller.Home.*());
+//    pointcut endLogPointcut():execution(* Home.*());
 //
 //    after():endLogPointcut() {
 //        logger.error("aspectj endLogger");

@@ -6,16 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import top.weineel.javasprint.domain.School;
 import top.weineel.javasprint.domain.User;
 
 @SpringBootApplication  // 同时包含了@Configuration、@EnableAutoConfiguration、@ComponentScan三个注解
 @Slf4j
+// @Import  导入其它被@Configuration标记的类
 public class JavaSprintApplication {
 
     /*
@@ -70,7 +68,7 @@ public class JavaSprintApplication {
     }
 
     // 可以指定bean的生命周期钩子函数，在bean的实现类中实现。
-    @Bean(name = "user", initMethod = "init", destroyMethod = "destroy")
+    @Bean(name = "user", initMethod = "init", destroyMethod = "destroy1")
     public User user() {
         return new User().setAge(27);
     }
