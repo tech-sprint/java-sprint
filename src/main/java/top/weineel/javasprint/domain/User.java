@@ -30,12 +30,14 @@ public class User implements InitializingBean, DisposableBean {
 
     @Override
     // 先于@Bean中声明的destroyMethod方法的调用
+    // 要避免两种方式同时存在
     public void destroy() {
         log.info("User({}) destroy, age = {}", username, age);
     }
 
     @Override
     // 先于@Bean中声明的initMethod方法的调用
+    // 要避免两种方式同时存在
     public void afterPropertiesSet() throws Exception {
         log.info("User({}) afterPropertiesSet, age = {}", username, age);
     }

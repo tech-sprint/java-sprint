@@ -3,13 +3,10 @@ package top.weineel.javasprint.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import top.weineel.javasprint.event.CustomEventFullyUser;
 import top.weineel.javasprint.domain.User;
 import top.weineel.javasprint.event.CustomEvent;
-import top.weineel.javasprint.event.CustomEventFullyUser;
 
 @Controller
 @RequestMapping("/home")
@@ -40,5 +37,22 @@ public class Home {
         user.setUsername(username).setAge(18);
         this.publisher.publishEvent(new CustomEventFullyUser(user, awesome));
         return "publish " + username;
+    }
+
+    @ResponseBody
+    @GetMapping("/brace")
+    public String brace() {
+        // 创建一个新的匿名类，并重写方法。并用这个匿名类创建对象。
+        User u1 = new User() {
+            @Override
+            public int getAge() {
+                return 3;
+            }
+            {
+                setUsername("weineel me");
+            }
+        };
+        u1.setAge(5);
+        return "brace: age=" + u1.getAge() + ",username=" + u1.getUsername();
     }
 }
