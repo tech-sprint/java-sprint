@@ -19,7 +19,7 @@ public class DeclareClasses {
 
     // 实例代码块，对象初始化完成后执行。
     {
-        setName("weineel");
+        setName("weineel2");
         setDescription("我的名字");
         System.out.println("DeclareClasses object init: count=" + count);
     }
@@ -40,4 +40,7 @@ public class DeclareClasses {
         this.description = description;
     }
 
+    {
+        setName("weineel");
+    }
 }
